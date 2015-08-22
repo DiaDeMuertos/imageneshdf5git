@@ -25,16 +25,23 @@ def leerhdf5(ruta):
         lat = float(archHDF5["LEVEL3/NDVI/NDVI"].attrs["MAPPING"][4])
         saltoX = float(archHDF5["LEVEL3/NDVI/NDVI"].attrs["MAPPING"][5])
         saltoY = float(archHDF5["LEVEL3/NDVI/NDVI"].attrs["MAPPING"][6])
-        cordInicial = (lon,lat)
-        boundingBox = ((lon,lat),(lon+(saltoX*x),lat-saltoY*y))
         
-        print lon,lat 
+        cordInicial = (lon,lat)
         gradosLon = np.arange(-120.0,-110.0,saltoX)
         gradosLat = np.arange(35,25,-saltoY)
+        boundingBoxNuevo = ((lon,lat),(gradosLon[-1],gradosLat[-1]))
+        boundingBoxOriginal = ((lon,lat),(lon+(saltoX*x),lat-saltoY*y))
+         
+        
          
         bBox = (-111.15333,29.01645+0.009775000000000016,-111.12987,29.00053-0.009775000000000016)
      
         print "Processando....."
+        print "{0}{1}".format("Imagen:",nombreArchivo.split(".")[0])
+        print "{0:<20}{1}".format("codenadas inicial:",cordInicial)
+        print "{0:<20}{1}".format("BoundingBox 1:",boundingBoxOriginal)
+        print "{0:<20}{1}".format("BoundingBox 2:",boundingBoxNuevo)
+        print "{0:<20}{1}".format("x,y:",(len(gradosLon),len(gradosLat)))
 
         rLon1 = gradosLon>=bBox[0]
         rLon2 = gradosLon<=bBox[2]
