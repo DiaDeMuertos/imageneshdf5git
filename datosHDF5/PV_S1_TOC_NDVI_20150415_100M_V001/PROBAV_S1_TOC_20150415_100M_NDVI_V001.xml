@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opt:EarthObservation version="1.2.1" gml:id="PROBAV_S1-TOC-NDVI_20150415_100M_V001"
+    xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eop="http://earth.esa.int/eop"
+    xmlns:opt="http://earth.esa.int/opt" 
+    xsi:schemaLocation="http://earth.esa.int/opt ..\GSCDAXSD1.4.4\ogc\eop\1.2.1\opt.xsd">
+    
+    <gml:metaDataProperty>
+        <eop:EarthObservationMetaData>
+            <eop:identifier>urn:ogc:def:EOP:VITO:PROBAV_S1-TOC-NDVI_100M_V001:PROBAV_S1-TOC-NDVI_20150415_100M:V001</eop:identifier>
+            <eop:parentIdentifier>urn:ogc:def:EOP:VITO:PROBAV_S1-TOC-NDVI_100M_V001</eop:parentIdentifier>
+            <eop:acquisitionType>NOMINAL</eop:acquisitionType>
+            <eop:productType>VGT_ND1_1C</eop:productType>
+            <eop:status>ARCHIVED</eop:status>
+            <eop:archivedIn>
+                <eop:ArchivingInformation>
+                    <eop:archivingCenter>VIT</eop:archivingCenter>
+                    <eop:archivingDate>2015-05-16T02:30:08Z</eop:archivingDate>
+                </eop:ArchivingInformation>
+            </eop:archivedIn>
+            <eop:composedOf/>
+            <eop:processing>
+                <eop:ProcessingInformation>
+                    <eop:processingCenter>VITO:PF</eop:processingCenter>
+                    <eop:processingDate>2015-05-16T02:30:08Z</eop:processingDate>
+                    <eop:compositeType>DAILY</eop:compositeType>
+                    <eop:nativeProductFormat>HDF5</eop:nativeProductFormat>
+
+                    <eop:ProcessingInformation>
+                    <eop:method>Geometric processing</eop:method>
+                    <eop:processorName>PROBAV_GEOMODELLING</eop:processorName>
+                    <eop:processorVersion>V1.0</eop:processorVersion>
+                </eop:ProcessingInformation>
+
+                <eop:ProcessingInformation>
+                    <eop:method>Radiometric processing</eop:method>
+                    <eop:processorName>PROBAV_RADIOMODELLING</eop:processorName>
+                    <eop:processorVersion>V1.0</eop:processorVersion>
+                </eop:ProcessingInformation>                   
+
+                <eop:ProcessingInformation>
+                    <eop:method>Inverse mapping model</eop:method>
+                    <eop:processorName>PROBAV_MAPPING</eop:processorName>
+                    <eop:processorVersion>V1.0</eop:processorVersion>
+                </eop:ProcessingInformation>
+
+                <eop:ProcessingInformation>
+                    <eop:method>Mosaic</eop:method>
+                    <eop:processorName>PROBAV_MOSAIC</eop:processorName>
+                    <eop:processorVersion>V1.0</eop:processorVersion>
+                </eop:ProcessingInformation>
+
+                <eop:ProcessingInformation>
+                    <eop:method>Cloud, ice and snow detection</eop:method>
+                    <eop:processorName>PROBAV_CLOUDICESNOWDETECTION</eop:processorName>
+                    <eop:processorVersion>V1.0</eop:processorVersion>
+                </eop:ProcessingInformation>
+
+                <eop:ProcessingInformation>
+                    <eop:method>Shadow detection</eop:method>
+                    <eop:processorName>PROBAV_SHADOWDETECTION</eop:processorName>
+                    <eop:processorVersion>V1.0</eop:processorVersion>
+                </eop:ProcessingInformation>
+
+                <eop:ProcessingInformation>
+                    <eop:method>Atmosheric correction (SMAC)</eop:method>
+                    <eop:processorName>PROBAV_ATMCORR_SMAC</eop:processorName>
+                    <eop:processorVersion>V1.0</eop:processorVersion>
+                </eop:ProcessingInformation>
+
+                <eop:ProcessingInformation>
+                    <eop:method>Compositing</eop:method>
+                    <eop:processorName>PROBAV_COMPOSITING_MVC</eop:processorName>
+                    <eop:processorVersion>V2.0</eop:processorVersion>
+                </eop:ProcessingInformation>
+
+                </eop:ProcessingInformation>
+            </eop:processing>
+            
+            <eop:vendorSpecific>						
+                
+                <eop:SpecificInformation>
+                    <eop:localAttribute>ProductReference</eop:localAttribute>
+                    <eop:localValue>PV_S1_TOC_NDVI-20150415_100M_V001</eop:localValue> 
+                </eop:SpecificInformation>
+                
+                <eop:SpecificInformation>
+                    <eop:localAttribute>ProductDescription</eop:localAttribute>
+                    <eop:localValue>PROBA-V Level3 Top Of Canopy NDVI Daily Synthesis at 100M resolution</eop:localValue> 
+                </eop:SpecificInformation>
+                
+                <eop:SpecificInformation>
+                    <eop:localAttribute>ProductVersion</eop:localAttribute>
+                    <eop:localValue>V001</eop:localValue> 
+                </eop:SpecificInformation>
+                
+                <eop:SpecificInformation>
+                    <eop:localAttribute>BoundingBox</eop:localAttribute>
+                    <eop:localValue>29.100 -111.100 28.900 -111.100 28.900 -110.900 29.100 -110.900 29.100 -111.100 </eop:localValue>
+                </eop:SpecificInformation>
+                
+                <eop:SpecificInformation>
+                    <eop:localAttribute>LandPercentage</eop:localAttribute>
+                    <eop:localValue>0.000</eop:localValue>
+                </eop:SpecificInformation>
+                
+                <eop:SpecificInformation>
+                    <eop:localAttribute>MissingDataPercentage</eop:localAttribute>
+                    <eop:localValue>0.000</eop:localValue>
+                </eop:SpecificInformation>
+                <eop:SpecificInformation>
+                    <eop:localAttribute>MapProjectionName</eop:localAttribute>
+                    <eop:localValue>Geographic Lat/Lon</eop:localValue>
+                </eop:SpecificInformation>          
+                
+                <eop:SpecificInformation>
+                    <eop:localAttribute>MapProjectionFamily</eop:localAttribute>
+                    <eop:localValue>Equirectangular projection</eop:localValue>
+                </eop:SpecificInformation>
+                
+                <eop:SpecificInformation>
+                    <eop:localAttribute>MapProjectionUnit</eop:localAttribute>
+                    <eop:localValue>DEGREES</eop:localValue>
+                </eop:SpecificInformation>
+                
+                <eop:SpecificInformation>
+                    <eop:localAttribute>MapProjectionReference</eop:localAttribute>
+                    <eop:localValue>GEOGRAPHIC_LAT_LON</eop:localValue>
+                </eop:SpecificInformation>
+
+                <eop:SpecificInformation>
+                    <eop:localAttribute>IsSampleImage</eop:localAttribute>
+                    <eop:localValue>FALSE</eop:localValue>
+                </eop:SpecificInformation>
+
+                <eop:SpecificInformation>
+                     <eop:localAttribute>IsReservedSynthesis</eop:localAttribute>
+                     <eop:localValue>false</eop:localValue>
+                </eop:SpecificInformation>
+                
+            </eop:vendorSpecific>	
+        </eop:EarthObservationMetaData>
+    </gml:metaDataProperty>
+    
+    <gml:validTime>
+        <gml:TimePeriod>
+            <gml:beginPosition>2015-04-15T00:00:00Z</gml:beginPosition>
+            <gml:endPosition>2015-04-15T23:59:59Z</gml:endPosition>
+        </gml:TimePeriod>
+    </gml:validTime>
+    
+    <gml:using>
+        <eop:EarthObservationEquipment>
+            <eop:platform>
+                <eop:Platform>
+                    <eop:shortName>PV01</eop:shortName>
+                    <eop:serialIdentifier>1</eop:serialIdentifier>
+                </eop:Platform>
+            </eop:platform>
+            <eop:instrument>
+                <eop:Instrument>
+                    <eop:shortName>VGT</eop:shortName>
+                </eop:Instrument>
+            </eop:instrument>
+            <eop:sensor>
+                <eop:Sensor>
+                    <eop:sensorType>OPTICAL</eop:sensorType>
+                    <eop:operationalMode>VGT_ND1</eop:operationalMode>
+                    <eop:resolution uom="m">111</eop:resolution>
+                </eop:Sensor>
+            </eop:sensor>
+            <eop:acquisitionParameters>
+                <opt:Acquisition>
+                    <eop:orbitNumber>000000</eop:orbitNumber>
+                </opt:Acquisition>
+            </eop:acquisitionParameters>
+        </eop:EarthObservationEquipment>
+    </gml:using>
+    
+    <gml:target>
+        <eop:Footprint>
+            <gml:multiExtentOf>
+                <gml:MultiSurface srsName="EPSG:4326">
+                    <gml:surfaceMembers>
+                        <gml:Polygon srsName="EPSG:4326">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList>29.100 -111.100 28.900 -111.100 28.900 -110.900 29.100 -110.900 29.100 -111.100 </gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                        </gml:Polygon>
+                    </gml:surfaceMembers>
+                </gml:MultiSurface>
+            </gml:multiExtentOf>
+            <gml:centerOf>
+                <gml:Point>
+                    <gml:pos>29.000 -111.000</gml:pos>
+                </gml:Point>
+            </gml:centerOf>
+        </eop:Footprint>
+    </gml:target>
+    
+    <gml:resultOf>
+        <opt:EarthObservationResult>
+
+            
+
+            <eop:product>
+                <eop:ProductInformation>
+                    <eop:referenceSystemIdentifier codeSpace='EPSG'>EPSG:4326</eop:referenceSystemIdentifier>
+                    <eop:fileName>PROBAV_S1_TOC_06Y04__20150415_100M_NDVI_V001.hdf5</eop:fileName>
+                    <eop:size uom='Bytes'>25965700</eop:size>
+                </eop:ProductInformation>
+            </eop:product>
+            			
+            
+            <opt:cloudCoverPercentage uom="%">0.000</opt:cloudCoverPercentage>
+            <opt:snowCoverPercentage uom="%">0.000</opt:snowCoverPercentage>
+            
+        </opt:EarthObservationResult>
+    </gml:resultOf>
+    
+</opt:EarthObservation>
+
+
