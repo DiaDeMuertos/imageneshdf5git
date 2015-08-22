@@ -9,6 +9,29 @@ import h5py
 import os
 import glob
 
+class cordenada:
+    lon = None
+    lat = None
+     
+    def __init__(self,lon, lat):
+        self.lon = lon
+        self.lat = lat
+        
+def leerArchivoConfig():
+    archivoConfiguracion = open("configuracion.txt")
+    renglon1 = archivoConfiguracion.readline().split(",")
+    renglon2 = archivoConfiguracion.readline().split(",")
+    renglon3 = archivoConfiguracion.readline().split(",")
+    
+    variables={}
+    variables[renglon1[0]] = cordenada(float(renglon1[1]),float(renglon1[2])+float(renglon1[3]))
+    variables[renglon2[0]] = cordenada(float(renglon2[1]),float(renglon2[2])+float(renglon2[3]))
+    variables[renglon3[0]] = renglon3[1].strip()
+    
+    archivoConfiguracion.close()
+                                        
+    return variables    
+
 def leerhdf5(ruta):
         
     listaDeArchivos = []
