@@ -21,22 +21,28 @@ if __name__ == '__main__':
     if "1" == op.strip():
         print "Opcion 1 DEFAULT inica en 5 segudos"
         print "\n"
-        time.sleep(5)
+        time.sleep(5)       
         
-        bbDeInteres = {}
-        bbDeInteres["BBPuntoSuperiorIzqD"] = variables["BBPuntoSuperiorIzqD"]
-        bbDeInteres["BBPuntoInferiorDerD"] = variables["BBPuntoInferiorDerD"]
+        bbDeInteres = procesos.boundingBox(variables["BBPuntoSuperiorIzqD"],variables["BBPuntoInferiorDerD"])        
         saltoGradoD = variables["saltoGradoD"]    
         ruta = os.path.join(os.getcwd(),variables["rutaD"])
         
         procesos.leerhdf5(ruta,bbDeInteres,saltoGradoD)
+        procesos.importartiff(ruta,bbDeInteres)
         
         print "\n"
     elif "2" == op.strip():
         print "Opcion 2 OTRA inica en 5 segudos"
         print "\n"
-        ruta = os.path.join(variables["rutaO"])
-        procesos.leerhdf5(ruta)
+        time.sleep(5)
+        
+        bbDeInteres = procesos.boundingBox(variables["BBPuntoSuperiorIzqO"],variables["BBPuntoInferiorDerO"])    
+        saltoGradoD = variables["saltoGradoO"]    
+        ruta = os.path.join(os.getcwd(),variables["rutaO"])
+        
+        procesos.leerhdf5(ruta,bbDeInteres,saltoGradoD)
+        procesos.importartiff(ruta,bbDeInteres)
+        
         print "\n"
     else:        
         print "no existe la opcion..."+op.strip()     

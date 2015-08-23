@@ -8,6 +8,12 @@ import numpy as np
 import h5py 
 import os
 import glob
+import csv
+import gdal
+import osr
+
+saltoX = None
+saltoY = None
 
 class cordenada:
     lon = None
@@ -16,6 +22,14 @@ class cordenada:
     def __init__(self,lon, lat):
         self.lon = lon
         self.lat = lat
+
+class boundingBox:
+    cordenadaSuperior = None
+    cordenadaInferior = None
+    
+    def __init__(self,cordenadaSuperior,cordenadaInferior):
+        self.cordenadaSuperior = cordenadaSuperior
+        self.cordenadaInferior = cordenadaInferior
         
 def leerArchivoConfig():
     archivoConfiguracion = open("configuracion.txt")
@@ -59,30 +73,27 @@ def leerhdf5(ruta,bbDeInteres,saltoGradoD):
         y,x = matrizDatos.shape
         lon = float(archHDF5["LEVEL3/NDVI/NDVI"].attrs["MAPPING"][3])
         lat = float(archHDF5["LEVEL3/NDVI/NDVI"].attrs["MAPPING"][4])
+        global saltoX,saltoY  
         saltoX = float(archHDF5["LEVEL3/NDVI/NDVI"].attrs["MAPPING"][5])
         saltoY = float(archHDF5["LEVEL3/NDVI/NDVI"].attrs["MAPPING"][6])
         
         cordInicial = (lon,lat)
         gradosLon = np.arange(lon,lon + saltoGradoD,saltoX)
         gradosLat = np.arange(lat,lat - saltoGradoD,-saltoY)
-#         Esta mas cercano al entero la version con np.arange que usar  gradosLonOtro = [lon + (saltoX*r) for r in range(x)]
-#         In [24]: gradosLonOtro[-1], gradosLon[-1]
-#         Out[24]: (-110.00000000000496, -110.00000000000227)
-        boundingBoxNuevo = ((lon,lat),(gradosLon[-1],gradosLat[-1]))
-#         boundingBoxOriginal = ((lon,lat),(lon+(saltoX*x),lat-saltoY*y))
+        boundingBox = ((lon,lat),(gradosLon[-1],gradosLat[-1]))
         
-        bBox = (bbDeInteres["BBPuntoSuperiorIzqD"].lon,
-                bbDeInteres["BBPuntoSuperiorIzqD"].lat,
-                bbDeInteres["BBPuntoInferiorDerD"].lon,
-                bbDeInteres["BBPuntoInferiorDerD"].lat)
+        bBox = (bbDeInteres.cordenadaSuperior.lon,
+                bbDeInteres.cordenadaSuperior.lat,
+                bbDeInteres.cordenadaInferior.lon,
+                bbDeInteres.cordenadaInferior.lat)
      
         print "Processando....."
         print "{0:<20}{1}".format("Imagen:",nombreArchivo.split(".")[0])
         print "{0:<20}{1}".format("codenadas inicial:",cordInicial)
         print "{0:<20}{1},{2}".format("Salto lon y lat:",saltoX,saltoY)
-#         print "{0:<20}{1}".format("BoundingBox 1:",boundingBoxOriginal)
-        print "{0:<20}{1}".format("BoundingBox 2:",boundingBoxNuevo)
+        print "{0:<20}{1}".format("BoundingBox:",boundingBox)
         print "{0:<20}{1}".format("x,y:",(len(gradosLon),len(gradosLat)))
+        print "{0:<20}{1}".format("Salgo grado:",saltoGradoD)
 
         rLon1 = gradosLon>=bBox[0]
         rLon2 = gradosLon<=bBox[2]
@@ -108,3 +119,48 @@ def leerhdf5(ruta,bbDeInteres,saltoGradoD):
         np.savetxt(os.path.join(ruta,nombreArchivo.split(".")[0]+".csv"), matrizDatos[yMin:yMax,xMin:xMax], delimiter=",")                                       
         archHDF5.close()
 
+def importartiff(ruta,bbDeInteres):
+     
+    listaDeArchivos = glob.glob(ruta+r"\*.csv")
+    for ra in listaDeArchivos:
+        nombreArchivo = os.path.basename(ra)
+
+        reader=csv.reader(open(ra,"rb"),delimiter=',')
+        x=list(reader)
+        result=np.array(x).astype('float')
+        grid = result
+        
+        output_file = os.path.join(ruta,nombreArchivo.split(".")[0]+".tif")
+        
+        ncols = grid.shape[1]
+        nrows = grid.shape[0]       
+        
+        xllcorner = bbDeInteres.cordenadaSuperior.lon
+        yllcorner = bbDeInteres.cordenadaSuperior.lat
+        
+        global saltoX,saltoY
+        xCellSize = saltoX
+        yCellSize = -saltoY
+        
+#         print grid.shape
+#         print grid[0,0]
+        
+        driver = gdal.GetDriverByName("GTiff")
+        dst_ds = driver.Create(output_file,ncols,nrows, 1, gdal.GDT_Byte )
+        # raster = grid[::-1]
+        raster = grid
+        
+        # # top left x, w-e pixel resolution, rotation, top left y, rotation, n-s pixel resolution
+        dst_ds.SetGeoTransform([xllcorner, xCellSize, 0, yllcorner, 0, yCellSize])
+          
+        # set the reference info 
+        srs = osr.SpatialReference()
+        srs.SetWellKnownGeogCS("WGS84")
+        dst_ds.SetProjection(srs.ExportToWkt())
+#         print raster.shape
+        
+        # write the band
+        dst_ds.GetRasterBand(1).WriteArray(raster)
+        ary = dst_ds.GetRasterBand(1).ReadAsArray()
+#         print ary[0,0]
+        ds = None        
