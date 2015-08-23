@@ -22,17 +22,30 @@ def leerArchivoConfig():
     renglon1 = archivoConfiguracion.readline().split(",")
     renglon2 = archivoConfiguracion.readline().split(",")
     renglon3 = archivoConfiguracion.readline().split(",")
+    renglon4 = archivoConfiguracion.readline().split(",")
+    archivoConfiguracion.readline()
+    renglon5 = archivoConfiguracion.readline().split(",")
+    renglon6 = archivoConfiguracion.readline().split(",")
+    renglon7 = archivoConfiguracion.readline().split(",")
+    renglon8 = archivoConfiguracion.readline().split(",")
+    
     
     variables={}
     variables[renglon1[0]] = cordenada(float(renglon1[1]),float(renglon1[2])+float(renglon1[3]))
     variables[renglon2[0]] = cordenada(float(renglon2[1]),float(renglon2[2])+float(renglon2[3]))
-    variables[renglon3[0]] = renglon3[1].strip()
+    variables[renglon3[0]] = float(renglon3[1])
+    variables[renglon4[0]] = renglon4[1].strip()
+    
+    variables[renglon5[0]] = cordenada(float(renglon5[1]),float(renglon5[2])+float(renglon5[3]))
+    variables[renglon6[0]] = cordenada(float(renglon6[1]),float(renglon6[2])+float(renglon6[3]))
+    variables[renglon7[0]] = float(renglon7[1])
+    variables[renglon8[0]] = renglon8[1].strip()
     
     archivoConfiguracion.close()
                                         
     return variables    
 
-def leerhdf5(ruta):
+def leerhdf5(ruta,bbDeInteres,saltoGradoD):
         
     listaDeArchivos = []
     for d in os.walk(ruta).next()[1]:
@@ -50,19 +63,24 @@ def leerhdf5(ruta):
         saltoY = float(archHDF5["LEVEL3/NDVI/NDVI"].attrs["MAPPING"][6])
         
         cordInicial = (lon,lat)
-        gradosLon = np.arange(-120.0,-110.0,saltoX)
-        gradosLat = np.arange(35,25,-saltoY)
+        gradosLon = np.arange(lon,lon + saltoGradoD,saltoX)
+        gradosLat = np.arange(lat,lat - saltoGradoD,-saltoY)
+#         Esta mas cercano al entero la version con np.arange que usar  gradosLonOtro = [lon + (saltoX*r) for r in range(x)]
+#         In [24]: gradosLonOtro[-1], gradosLon[-1]
+#         Out[24]: (-110.00000000000496, -110.00000000000227)
         boundingBoxNuevo = ((lon,lat),(gradosLon[-1],gradosLat[-1]))
-        boundingBoxOriginal = ((lon,lat),(lon+(saltoX*x),lat-saltoY*y))
-         
+#         boundingBoxOriginal = ((lon,lat),(lon+(saltoX*x),lat-saltoY*y))
         
-         
-        bBox = (-111.15333,29.01645+0.009775000000000016,-111.12987,29.00053-0.009775000000000016)
+        bBox = (bbDeInteres["BBPuntoSuperiorIzqD"].lon,
+                bbDeInteres["BBPuntoSuperiorIzqD"].lat,
+                bbDeInteres["BBPuntoInferiorDerD"].lon,
+                bbDeInteres["BBPuntoInferiorDerD"].lat)
      
         print "Processando....."
-        print "{0}{1}".format("Imagen:",nombreArchivo.split(".")[0])
+        print "{0:<20}{1}".format("Imagen:",nombreArchivo.split(".")[0])
         print "{0:<20}{1}".format("codenadas inicial:",cordInicial)
-        print "{0:<20}{1}".format("BoundingBox 1:",boundingBoxOriginal)
+        print "{0:<20}{1},{2}".format("Salto lon y lat:",saltoX,saltoY)
+#         print "{0:<20}{1}".format("BoundingBox 1:",boundingBoxOriginal)
         print "{0:<20}{1}".format("BoundingBox 2:",boundingBoxNuevo)
         print "{0:<20}{1}".format("x,y:",(len(gradosLon),len(gradosLat)))
 
