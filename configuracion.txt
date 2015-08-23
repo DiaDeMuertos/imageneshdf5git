@@ -3,7 +3,7 @@ BBPuntoInferiorDerD,-111.12987,29.00053,-0.009775000000000016
 saltoGradoD,10
 rutaD,datosHDF5
 ---------------------------
-BBPuntoSuperiorIzqO,-111.15333,29.01645,+0.009775000000000016
-BBPuntoInferiorDerO,-111.12987,29.00053,-0.009775000000000016
+BBPuntoSuperiorIzqO,-111.308,29.111
+BBPuntoInferiorDerO,-110.779,28.894
 saltoGradoO,10
 rutaO,C:\Users\Topo\Desktop\datosHDF5

@@ -19,9 +19,9 @@ if __name__ == '__main__':
     print "\n"
     
     if "1" == op.strip():
-        print "Opcion 1 DEFAULT inica en 5 segudos"
+        print "Opcion 1 DEFAULT inica en 2 segudos"
         print "\n"
-        time.sleep(5)       
+        time.sleep(2)       
         
         bbDeInteres = procesos.boundingBox(variables["BBPuntoSuperiorIzqD"],variables["BBPuntoInferiorDerD"])        
         saltoGradoD = variables["saltoGradoD"]    
@@ -32,15 +32,15 @@ if __name__ == '__main__':
         
         print "\n"
     elif "2" == op.strip():
-        print "Opcion 2 OTRA inica en 5 segudos"
+        print "Opcion 2 OTRA inica en 2 segudos"
         print "\n"
-        time.sleep(5)
+        time.sleep(2)
         
         bbDeInteres = procesos.boundingBox(variables["BBPuntoSuperiorIzqO"],variables["BBPuntoInferiorDerO"])    
-        saltoGradoD = variables["saltoGradoO"]    
+        saltoGradoO = variables["saltoGradoO"]    
         ruta = os.path.join(os.getcwd(),variables["rutaO"])
         
-        procesos.leerhdf5(ruta,bbDeInteres,saltoGradoD)
+        procesos.leerhdf5(ruta,bbDeInteres,saltoGradoO)
         procesos.importartiff(ruta,bbDeInteres)
         
         print "\n"
@@ -48,4 +48,4 @@ if __name__ == '__main__':
         print "no existe la opcion..."+op.strip()     
     
     print "fin..................."
-    os.system("pause")
+#     os.system("pause")

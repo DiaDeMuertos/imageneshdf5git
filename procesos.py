@@ -50,8 +50,8 @@ def leerArchivoConfig():
     variables[renglon3[0]] = float(renglon3[1])
     variables[renglon4[0]] = renglon4[1].strip()
     
-    variables[renglon5[0]] = cordenada(float(renglon5[1]),float(renglon5[2])+float(renglon5[3]))
-    variables[renglon6[0]] = cordenada(float(renglon6[1]),float(renglon6[2])+float(renglon6[3]))
+    variables[renglon5[0]] = cordenada(float(renglon5[1]),float(renglon5[2]))
+    variables[renglon6[0]] = cordenada(float(renglon6[1]),float(renglon6[2]))
     variables[renglon7[0]] = float(renglon7[1])
     variables[renglon8[0]] = renglon8[1].strip()
     
@@ -86,7 +86,7 @@ def leerhdf5(ruta,bbDeInteres,saltoGradoD):
                 bbDeInteres.cordenadaSuperior.lat,
                 bbDeInteres.cordenadaInferior.lon,
                 bbDeInteres.cordenadaInferior.lat)
-     
+             
         print "Processando....."
         print "{0:<20}{1}".format("Imagen:",nombreArchivo.split(".")[0])
         print "{0:<20}{1}".format("codenadas inicial:",cordInicial)
@@ -94,15 +94,16 @@ def leerhdf5(ruta,bbDeInteres,saltoGradoD):
         print "{0:<20}{1}".format("BoundingBox:",boundingBox)
         print "{0:<20}{1}".format("x,y:",(len(gradosLon),len(gradosLat)))
         print "{0:<20}{1}".format("Salgo grado:",saltoGradoD)
-
+        print "{0:<20}{1}".format("Area interes",bBox)
+ 
         rLon1 = gradosLon>=bBox[0]
         rLon2 = gradosLon<=bBox[2]
-         
+          
         rLat1 = gradosLat<=bBox[1]
         rLat2 = gradosLat>=bBox[3]
-         
+          
         union = zip(list(rLon1),list(rLon2),list(rLat1),list(rLat2))
-         
+          
         xIndices = list()
         yIndices = list()
         for indice,par in enumerate(union):
@@ -110,12 +111,12 @@ def leerhdf5(ruta,bbDeInteres,saltoGradoD):
                 xIndices.append(indice)
             if par[2] & par[3]:
                 yIndices.append(indice)
-         
+          
         xMin = np.array(xIndices).min()
         xMax = np.array(xIndices).max() + 1
         yMin = np.array(yIndices).min()
         yMax = np.array(yIndices).max() + 1
-                 
+                   
         np.savetxt(os.path.join(ruta,nombreArchivo.split(".")[0]+".csv"), matrizDatos[yMin:yMax,xMin:xMax], delimiter=",")                                       
         archHDF5.close()
 
